@@ -33,7 +33,7 @@ class AuthController extends Controller
         $token = Auth::guard('api')->login($user);
         return response()->json([
             'status' => 'success',
-            'message' => 'User created successfully',
+            'message' => 'Le compte est créé avec succès',
             'user' => $user,
             'authorisation' => [
                 'token' => $token,
@@ -54,7 +54,7 @@ class AuthController extends Controller
         if (!$token) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized',
+                'message' => 'Non autorisé',
             ], 401);
         }
 
@@ -75,7 +75,7 @@ class AuthController extends Controller
         Auth::guard('api')->logout();
         return response()->json([
             'status' => 'success',
-            'message' => 'Successfully logged out',
+            'message' => 'Deconnexion réussie',
         ]);
     }
 

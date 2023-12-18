@@ -36,10 +36,13 @@ Route::middleware(['auth:api','role:admin'])->group(function (){
     Route::put('/formation/update/{formation}', [FormationController::class, 'update']);
     Route::delete('/formation/delete/{formation}', [FormationController::class, 'destroy']);
     //Les routes d'affichage
+    Route::get('/candidate/accept/list', [CandidatureController::class, 'acceptList']);
+    Route::get('/candidate/deny/list', [CandidatureController::class, 'denyList']);
     //Liste de toutes les formation
     Route::get('/formation/list', [FormationController::class, 'index']);
     //Les routes de gestion des candidatures
-
+    Route::put('/candidate/accept/{id}', [CandidatureController::class, 'accept']);
+    Route::put('/candidate/deny/{id}', [CandidatureController::class, 'deny']);
 });
 // Le middleware du candidat //
 Route::middleware(['auth:api','role:candidat'])->group(function (){

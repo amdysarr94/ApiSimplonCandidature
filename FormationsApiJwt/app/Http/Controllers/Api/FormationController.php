@@ -36,7 +36,7 @@ class FormationController extends Controller
         $formation->nom = $request->nom;
         $formation->duree = $request->duree;
         $formation->description = $request->description;
-        $formation->save();
+        $formation->update();
         return response()->json([
             'status_code'=>200,
             'status_message'=> "Formation modifié avec succès",
