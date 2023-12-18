@@ -7,9 +7,51 @@ use App\Http\Requests\CandidatureRequest;
 use App\Models\Candidature;
 use App\Models\Formation;
 use Illuminate\Http\Request;
+/**
+ * @OA\Info(title="My First API", version="0.1")
+ */
+
 
 class CandidatureController extends Controller
 {
+    /**
+ * @OA\Post(
+ *     path="/api/candidatures",
+ *     summary="Envoyer une candidature",
+ *     tags={"Candidatures"},
+ *     security={{ "bearerAuth": {} }},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"nom_formation"},
+ *             @OA\Property(property="nom_formation", type="string", example="Nom de la formation"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Candidature envoyée avec succès",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=200),
+ *                 @OA\Property(property="status_message", type="string", example="Candidature envoyée avec succès"),
+ *                 @OA\Property(property="candidature", ref="#/components/schemas/Candidature"),
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="Vous avez déjà candidaté à cette formation",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=403),
+ *                 @OA\Property(property="status_message", type="string", example="Vous avez déjà candidaté à cette formation"),
+ *             )
+ *         )
+ *     )
+ * )
+ */
     public function store(CandidatureRequest $request){
         // dd('ok');
         $candidate = new Candidature();
@@ -43,6 +85,33 @@ class CandidatureController extends Controller
         }
        
     }
+    /**
+ * @OA\Put(
+ *     path="/api/candidatures/{id}/accept",
+ *     summary="Accepter une candidature",
+ *     tags={"Candidatures"},
+ *     security={{ "bearerAuth": {} }},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la candidature",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Candidature acceptée",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=200),
+ *                 @OA\Property(property="status_message", type="string", example="Candidature acceptée"),
+ *                 @OA\Property(property="candidature", ref="#/components/schemas/Candidature"),
+ *             )
+ *         )
+ *     )
+ * )
+ */
     public function accept($id){
         $candidate = Candidature::where('id', $id)->get()->first();
         // dd($candidate);
@@ -54,6 +123,33 @@ class CandidatureController extends Controller
             'candidature'=>$candidate
         ],200);
     }
+    /**
+ * @OA\Put(
+ *     path="/api/candidatures/{id}/deny",
+ *     summary="Rejeter une candidature",
+ *     tags={"Candidatures"},
+ *     security={{ "bearerAuth": {} }},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la candidature",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Candidature rejetée",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=200),
+ *                 @OA\Property(property="status_message", type="string", example="Candidature rejetée"),
+ *                 @OA\Property(property="candidature", ref="#/components/schemas/Candidature"),
+ *             )
+ *         )
+ *     )
+ * )
+ */
     public function  deny($id){
         $candidate = Candidature::where('id', $id)->get()->first();
         // dd($candidate);

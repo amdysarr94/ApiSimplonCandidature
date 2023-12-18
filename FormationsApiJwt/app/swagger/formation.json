@@ -1,0 +1,246 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/api/formations": {
+            "get": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Liste de toutes les formations",
+                "operationId": "5e9ba5829719dbaecae7703885f2ee57",
+                "responses": {
+                    "200": {
+                        "description": "La liste de toutes les formations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "status_code": {
+                                                "type": "integer",
+                                                "example": 200
+                                            },
+                                            "status_message": {
+                                                "type": "string",
+                                                "example": "La liste de toutes les formations"
+                                            },
+                                            "formation": {
+                                                "$ref": "#/components/schemas/Formation"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Enregistrer une nouvelle formation",
+                "operationId": "d4bdb116fe43831c677b3dc78eeb2a12",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "duree",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Nom de la formation"
+                                    },
+                                    "duree": {
+                                        "type": "integer",
+                                        "example": 120
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Description de la formation"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Formation enregistrée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "status_code": {
+                                                "type": "integer",
+                                                "example": 200
+                                            },
+                                            "status_message": {
+                                                "type": "string",
+                                                "example": "Formation enregistrée avec succès"
+                                            },
+                                            "formation": {
+                                                "$ref": "#/components/schemas/Formation"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/formations/{formation}": {
+            "put": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Modifier une formation existante",
+                "operationId": "4987843cc6aead0d2ae16d3fc45a1159",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de la formation à modifier",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nom",
+                                    "duree",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "nom": {
+                                        "type": "string",
+                                        "example": "Nouveau nom de la formation"
+                                    },
+                                    "duree": {
+                                        "type": "integer",
+                                        "example": 150
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Nouvelle description de la formation"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Formation modifiée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "status_code": {
+                                                "type": "integer",
+                                                "example": 200
+                                            },
+                                            "status_message": {
+                                                "type": "string",
+                                                "example": "Formation modifiée avec succès"
+                                            },
+                                            "formation": {
+                                                "$ref": "#/components/schemas/Formation"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Formations"
+                ],
+                "summary": "Supprimer une formation",
+                "operationId": "bce36e0af08c4d7ac6eacf7948af890d",
+                "parameters": [
+                    {
+                        "name": "formation",
+                        "in": "path",
+                        "description": "ID de la formation à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Formation supprimée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "status_code": {
+                                                "type": "integer",
+                                                "example": 200
+                                            },
+                                            "status_message": {
+                                                "type": "string",
+                                                "example": "Formation supprimée avec succès"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    }
+}

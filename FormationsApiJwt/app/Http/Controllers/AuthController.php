@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+// use OpenApi\Annotations as OA;
 
 class AuthController extends Controller
 {
@@ -14,7 +15,46 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login','register','logout']]);
     }
-
+    /**
+ * @OA\Post(
+ *     path="/register",
+ *     summary="Enregistrer un nouvel utilisateur",
+ *     tags={"Utilisateurs"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"name", "email", "password"},
+ *             @OA\Property(property="name", type="string", example="Doe"),
+ *             @OA\Property(property="email", type="string", format="email", example="john.doe@example.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="secret"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Utilisateur enregistré",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=200),
+ *                 @OA\Property(property="status_message", type="string", example="Utilisateur enregistré"),
+ *                 @OA\Property(property="user", ref="#/components/schemas/User")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Erreur d'enregistrement de l'utilisateur",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=422),
+ *                 @OA\Property(property="status_message", type="string", example="Erreur d'enregistrement de l'utilisateur")
+ *             )
+ *         )
+ *     ),
+ *     security={}
+ * )
+ */
     public function register(Request $request){
         // dd('ok');
         $request->validate([
@@ -41,7 +81,45 @@ class AuthController extends Controller
             ]
         ]);
     }
-
+/**
+ * @OA\Post(
+ *     path="/login",
+ *     summary="Connecter un utilisateur",
+ *     tags={"Utilisateurs"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email", "password"},
+ *             @OA\Property(property="email", type="string", format="email", example="john.doe@example.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="secret"),
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Utilisateur connecté",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=200),
+ *                 @OA\Property(property="status_message", type="string", example="Utilisateur connecté"),
+ *                 @OA\Property(property="user", ref="#/components/schemas/User")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Non autorisé",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=401),
+ *                 @OA\Property(property="status_message", type="string", example="Non autorisé")
+ *             )
+ *         )
+ *     ),
+ *     security={}
+ * )
+ */
     public function login(Request $request)
     {
         $request->validate([
@@ -69,7 +147,25 @@ class AuthController extends Controller
             ]);
 
     }
-
+/**
+ * @OA\Post(
+ *     path="/logout",
+ *     summary="Déconnecter l'utilisateur",
+ *     tags={"Utilisateurs"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Déconnexion réussie",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="status_code", type="integer", example=200),
+ *                 @OA\Property(property="status_message", type="string", example="Déconnexion réussie")
+ *             )
+ *         )
+ *     ),
+ *     security={}
+ * )
+ */
     public function logout()
     {
         Auth::guard('api')->logout();
