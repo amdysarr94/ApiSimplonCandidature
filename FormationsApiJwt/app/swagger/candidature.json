@@ -194,6 +194,84 @@
                     }
                 ]
             }
+        },
+        "/api/accept-list": {
+            "get": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Obtenir la liste des candidatures acceptées",
+                "description": "Récupère la liste des candidatures acceptées",
+                "operationId": "acceptList",
+                "responses": {
+                    "200": {
+                        "description": "Liste des candidatures acceptées",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "format": "int32",
+                                            "example": 200
+                                        },
+                                        "status_message": {
+                                            "type": "string",
+                                            "example": "La liste des candidatures acceptées"
+                                        },
+                                        "candidature": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Candidature"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deny-list": {
+            "get": {
+                "tags": [
+                    "Candidatures"
+                ],
+                "summary": "Obtenir la liste des candidatures refusées",
+                "description": "Récupère la liste des candidatures refusées",
+                "operationId": "denyList",
+                "responses": {
+                    "200": {
+                        "description": "Liste des candidatures refusées",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status_code": {
+                                            "type": "integer",
+                                            "format": "int32",
+                                            "example": 200
+                                        },
+                                        "status_message": {
+                                            "type": "string",
+                                            "example": "La liste des candidatures rejetées"
+                                        },
+                                        "candidature": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Candidature"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

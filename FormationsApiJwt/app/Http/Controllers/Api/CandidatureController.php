@@ -161,6 +161,24 @@ class CandidatureController extends Controller
             'candidature'=>$candidate
         ],200);
     }
+    /**
+ * @OA\Get(
+ *      path="/api/accept-list",
+ *      operationId="acceptList",
+ *      tags={"Candidatures"},
+ *      summary="Obtenir la liste des candidatures acceptées",
+ *      description="Récupère la liste des candidatures acceptées",
+ *      @OA\Response(
+ *          response=200,
+ *          description="Liste des candidatures acceptées",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status_code", type="integer", format="int32", example=200),
+ *              @OA\Property(property="status_message", type="string", example="La liste des candidatures acceptées"),
+ *              @OA\Property(property="candidature", type="array", @OA\Items(ref="#/components/schemas/Candidature")),
+ *          ),
+ *      ),
+ * )
+ */
     public function acceptList(){
         $acceptList = Candidature::where('statut', 'accepté')->get();
         return response()->json([
@@ -169,6 +187,24 @@ class CandidatureController extends Controller
             'candidature'=>$acceptList
         ],200);
     }
+    /**
+ * @OA\Get(
+ *      path="/api/deny-list",
+ *      operationId="denyList",
+ *      tags={"Candidatures"},
+ *      summary="Obtenir la liste des candidatures refusées",
+ *      description="Récupère la liste des candidatures refusées",
+ *      @OA\Response(
+ *          response=200,
+ *          description="Liste des candidatures refusées",
+ *          @OA\JsonContent(
+ *              @OA\Property(property="status_code", type="integer", format="int32", example=200),
+ *              @OA\Property(property="status_message", type="string", example="La liste des candidatures rejetées"),
+ *              @OA\Property(property="candidature", type="array", @OA\Items(ref="#/components/schemas/Candidature")),
+ *          ),
+ *      ),
+ * )
+ */
     public function denyList(){
         $denyList = Candidature::where('statut', 'refusé')->get();
         return response()->json([
