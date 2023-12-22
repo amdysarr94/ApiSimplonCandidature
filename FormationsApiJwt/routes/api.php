@@ -25,7 +25,8 @@ use App\Http\Controllers\Api\CandidatureController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+//Liste de toutes les formation
+Route::get('/formation/list', [FormationController::class, 'index']);
 Route::post('/register',[AuthController::class,'register']);
 Route::post('/login', [AuthController::class,'login']);
 // Route::post('refresh', [AuthController::class,'refresh']);
@@ -36,10 +37,13 @@ Route::middleware(['auth:api','role:admin'])->group(function (){
     Route::put('/formation/update/{formation}', [FormationController::class, 'update']);
     Route::delete('/formation/delete/{formation}', [FormationController::class, 'destroy']);
     //Les routes d'affichage
+        //Liste des candidats
+    Route::get('/candidat', [AuthController::class, 'index']);
+        //La liste des candidatures
+    Route::get('/candidate/list', [CandidatureController::class, 'index']);
     Route::get('/candidate/accept/list', [CandidatureController::class, 'acceptList']);
     Route::get('/candidate/deny/list', [CandidatureController::class, 'denyList']);
-    //Liste de toutes les formation
-    Route::get('/formation/list', [FormationController::class, 'index']);
+        
     //Les routes de gestion des candidatures
     Route::put('/candidate/accept/{id}', [CandidatureController::class, 'accept']);
     Route::put('/candidate/deny/{id}', [CandidatureController::class, 'deny']);
@@ -47,4 +51,5 @@ Route::middleware(['auth:api','role:admin'])->group(function (){
 // Le middleware du candidat //
 Route::middleware(['auth:api','role:candidat'])->group(function (){
     Route::post('/candidate', [CandidatureController::class, 'store']);
+    
 });

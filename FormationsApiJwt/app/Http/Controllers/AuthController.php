@@ -15,9 +15,17 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login','register','logout']]);
     }
+    public function index(){
+        $candidats = User::where('role', 'candidat')->get();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'La liste des candidats',
+            'candidats' => $candidats,
+        ]);
+    }
     /**
  * @OA\Post(
- *     path="/register",
+ *     path="/api/register",
  *     summary="Enregistrer un nouvel utilisateur",
  *     tags={"Utilisateurs"},
  *     @OA\RequestBody(
@@ -67,7 +75,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            // 'role' => $request->role,
+            //  'role' => $request->role,
         ]);
 
         $token = Auth::guard('api')->login($user);
@@ -83,7 +91,7 @@ class AuthController extends Controller
     }
 /**
  * @OA\Post(
- *     path="/login",
+ *     path="/api/login",
  *     summary="Connecter un utilisateur",
  *     tags={"Utilisateurs"},
  *     @OA\RequestBody(
@@ -149,7 +157,7 @@ class AuthController extends Controller
     }
 /**
  * @OA\Post(
- *     path="/logout",
+ *     path="/api/logout",
  *     summary="Déconnecter l'utilisateur",
  *     tags={"Utilisateurs"},
  *     @OA\Response(

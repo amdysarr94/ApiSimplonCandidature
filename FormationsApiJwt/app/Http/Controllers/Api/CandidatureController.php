@@ -14,6 +14,14 @@ use Illuminate\Http\Request;
 
 class CandidatureController extends Controller
 {
+    public function index(){
+        $candidates = Candidature::all();
+        return response()->json([
+            'status_code'=>200,
+            'status_message'=> "Candidature envoyé avec succès",
+            'candidature'=>$candidates
+        ],200);
+    }
     /**
  * @OA\Post(
  *     path="/api/candidatures",

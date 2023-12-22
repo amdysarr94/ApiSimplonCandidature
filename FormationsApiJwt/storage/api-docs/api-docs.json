@@ -514,13 +514,13 @@
                 ]
             }
         },
-        "/login": {
+        "/api/login": {
             "post": {
                 "tags": [
                     "Utilisateurs"
                 ],
                 "summary": "Connecter un utilisateur",
-                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -601,13 +601,13 @@
                 "security": []
             }
         },
-        "/logout": {
+        "/api/logout": {
             "post": {
                 "tags": [
                     "Utilisateurs"
                 ],
                 "summary": "Déconnecter l'utilisateur",
-                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "operationId": "fe8f3429cd6979b3b4517e186505f9f9",
                 "responses": {
                     "200": {
                         "description": "Déconnexion réussie",

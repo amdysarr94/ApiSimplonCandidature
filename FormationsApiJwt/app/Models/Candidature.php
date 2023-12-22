@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Candidature extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'formation_id',
+    ];
     public function User(){
         return $this->hasMany(User::class);
     }
